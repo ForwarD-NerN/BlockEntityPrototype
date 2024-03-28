@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ru.nern.becraft.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "bed.BlockGameMixin",
+    "bed.BlockSetterMixin",
+    "bed.ChunkLoaderMixin",
+    "bed.ChunkMixin",
+    "bed.InGameMixin",
+    "bed.RegionMixin",
+    "bed.UIMixin",
+    "bed.WorldMixin",
+    "bed.save.ChunkSaverMixin",
+    "bed.save.WorldLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

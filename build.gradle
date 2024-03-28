@@ -1,0 +1,166 @@
+plugins {
+    id "application"
+    id "maven-publish"
+}
+
+repositories {
+
+    ivy {
+        name "Cosmic Reach"
+        url "https://cosmic-archive.netlify.app/"
+        patternLayout {
+            artifact "/Cosmic Reach-[revision].jar"
+        }
+        // This is required in Gradle 6.0+ as metadata file (ivy.xml) is mandatory
+        metadataSources {
+            artifact()
+        }
+
+        content {
+            includeGroup "finalforeach"
+        }
+    }
+
+    maven {
+        name "JitPack"
+        url "https://jitpack.io"
+    }
+    maven {
+        name "Quilt"
+        url "https://maven.quiltmc.org/repository/release"
+    }
+    maven {
+        name "Fabric"
+        url "https://maven.fabricmc.net/"
+    }
+    maven {
+        name "Sponge"
+        url "https://repo.spongepowered.org/maven/"
+    }
+
+    mavenCentral()
+}
+
+
+configurations {
+    cosmicreach // Config to provide the Cosmic Reach project
+    compileOnly.extendsFrom(cosmicreach) // Allows cosmic reach to be used in the codebase
+
+    quiltMod // Config to be able to load Quilt Mods
+    implementation.extendsFrom(quiltMod)
+
+}
+
+jar {
+    from {
+        configurations
+                .runtimeClasspath
+                .collect {
+
+                    if(it.name.equalsIgnoreCase("NBT-6.1.jar")) {
+                        project.logger.lifecycle('File: ' +it.name)
+                        zipTree(it)
+                    }
+                }
+    }
+}
+
+dependencies {
+    // Cosmic Reach jar
+    //cosmicreach "finalforeach:cosmicreach:${cosmic_reach_version}"
+    cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
+
+    // Cosmic Quilt
+    implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
+
+    // FluxAPI
+    //  If you don't want FluxAPI included in your project, remove this and the reference in the `gradle.properties`
+    quiltMod "com.github.CRModders:FluxAPI:${fluxapi_version}"
+
+    implementation 'com.github.Querz:NBT:6.1'
+}
+
+processResources {
+    def resourceTargets = [ // Locations of where to inject the properties
+            "quilt.mod.json"
+    ]
+
+    // Left item is the name in the target, right is the varuable name
+    def replaceProperties = [
+            "mod_version"     : project.version,
+            "mod_group"       : project.group,
+            "mod_name"        : project.name,
+            "mod_id"          : id,
+    ]
+
+
+    inputs.properties replaceProperties
+    replaceProperties.put "project", project
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
+}
+
+
+application {
+    // As Quilt is our loader, use its main class at:
+    mainClass = "org.quiltmc.loader.impl.launch.knot.KnotClient"
+}
+
+// Sets up all the Quilt Mods
+def String getQuiltModLocations(Configuration config) {
+    StringBuilder sb = new StringBuilder()
+    for (obj in config.allDependencies) {
+        sb.append(File.pathSeparator + config.files(obj)[0])
+    }
+    return sb.toString()
+}
+
+applicationDefaultJvmArgs = [
+        "-Dloader.skipMcProvider=true", // Stops Quilt from attempting to find mappings, and all the other Minecraft stuff
+        "-Dloader.gameJarPath=" + configurations.cosmicreach.asPath, // Defines path to Cosmic Reach
+        "-Dloader.addMods=" +
+                jar.archiveFile.get().asFile + // Add the jar of this project
+                getQuiltModLocations(configurations.quiltMod) // Adds the jars of any Quilt mods added
+]
+
+run {
+    // To run this project in the game, depend on the creation of jar task
+    dependsOn "jar"
+
+    // Change the run directory
+    File runningDir = new File("run/")
+    if (!runningDir.exists())
+        runningDir.mkdirs()
+//    jvmArgs("-Dloader.skipMcProvider=true", "-Dloader.gameJarPath=" + configurations.cosmicreach.asPath,
+//            "-Dloader.addMods=" +jar.archiveFile.get().asFile +
+//            getQuiltModLocations(configurations.quiltMod))
+
+    tasks.run.workingDir = runningDir
+}
+
+
+java {
+	withSourcesJar()
+	// withJavadocJar() // If docs are included with the project, this line can be un-commented
+
+    // Sets the Java version
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = id
+
+		    from components.java
+        }
+    }
+
+    repositories {
+
+    }
+}
