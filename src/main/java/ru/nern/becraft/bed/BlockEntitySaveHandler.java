@@ -16,7 +16,6 @@ import ru.nern.becraft.bed.api.internal.RegionBEAccess;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class BlockEntitySaveHandler {
     private static final CompoundTag saveCompound = new CompoundTag();
@@ -28,7 +27,7 @@ public class BlockEntitySaveHandler {
                 for (Chunk chunk : region.getChunks()) {
                     fetchBED(chunk);
                 }
-                saveBED(region, world.getFullSaveFolder());
+                saveBED(region, world.getFullSaveFolder(), true);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +41,7 @@ public class BlockEntitySaveHandler {
             for (Chunk chunk : region.getChunks()) {
                 fetchBED(chunk);
             }
-            saveBED(region, world.getFullSaveFolder());
+            saveBED(region, world.getFullSaveFolder(), false);
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -78,10 +77,10 @@ public class BlockEntitySaveHandler {
     }
 
 
-    private static void saveBED(Region region, String worldFolderName) {
+    private static void saveBED(Region region, String worldFolderName, boolean log) {
         try {
             if(saveCompound.size() > 0 || !((RegionBEAccess)region).getRemovedBEPositions().isEmpty()) {
-                BECraft.LOGGER.info("Started saving BED");
+                if(log) BECraft.LOGGER.info("Started saving BED");
                 String bedFolderName = worldFolderName + "/zones/base/moon/bed";
                 String bedFileName = bedFolderName + "/bed_" + region.regionX + "_" + region.regionY + "_" + region.regionZ + ".bed";
                 (new File(bedFolderName)).mkdirs();
@@ -93,7 +92,7 @@ public class BlockEntitySaveHandler {
                 NBTUtil.write(saveCompound, bedFile, true);
 
                 saveCompound.clear();
-                BECraft.LOGGER.info("Finished saving BED");
+                if(log) BECraft.LOGGER.info("Finished saving BED");
             }
         }catch (IOException | NumberFormatException e) {
             BECraft.LOGGER.info("Something went wrong while saving the BED: " +e);

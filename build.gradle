@@ -132,9 +132,6 @@ run {
     File runningDir = new File("run/")
     if (!runningDir.exists())
         runningDir.mkdirs()
-//    jvmArgs("-Dloader.skipMcProvider=true", "-Dloader.gameJarPath=" + configurations.cosmicreach.asPath,
-//            "-Dloader.addMods=" +jar.archiveFile.get().asFile +
-//            getQuiltModLocations(configurations.quiltMod))
 
     tasks.run.workingDir = runningDir
 }
@@ -158,9 +155,5 @@ publishing {
 
 		    from components.java
         }
-    }
-
-    repositories {
-
     }
 }

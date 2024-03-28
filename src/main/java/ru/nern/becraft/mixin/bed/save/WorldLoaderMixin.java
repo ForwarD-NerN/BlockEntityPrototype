@@ -18,7 +18,7 @@ public class WorldLoaderMixin {
     //Saving the block entities before unloading far away chunks
     @Inject(method = "unloadFarAwayChunks", at = @At(value = "INVOKE", target = "Lfinalforeach/cosmicreach/world/World;removeChunk(Lfinalforeach/cosmicreach/world/chunks/Chunk;)V"))
     private void saveBEsBeforeUnloading(World world, int chunkRadius, int playerChunkX, int playerChunkZ, Array<Chunk> tmpColChunks, CallbackInfo ci, @Local Chunk chunk) {
-        if(!((ChunkBEAccess)chunk).hasBlockEntities()) {
+        if(((ChunkBEAccess)chunk).hasBlockEntities()) {
             BlockEntitySaveHandler.saveBlockEntitiesInRegion(world, chunk.getRegion(world));
         }
 
