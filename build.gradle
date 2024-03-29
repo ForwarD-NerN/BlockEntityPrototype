@@ -67,8 +67,8 @@ jar {
 
 dependencies {
     // Cosmic Reach jar
-    //cosmicreach "finalforeach:cosmicreach:${cosmic_reach_version}"
-    cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
+    cosmicreach "finalforeach:cosmicreach:${cosmic_reach_version}"
+    // cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
 
     // Cosmic Quilt
     implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
