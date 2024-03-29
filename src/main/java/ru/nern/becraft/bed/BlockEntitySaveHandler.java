@@ -24,7 +24,6 @@ public class BlockEntitySaveHandler {
     public static void saveAllBlockEntities(World world) {
         try {
             for(Region region : world.regions.values()) {
-
                 //Gdx doesn't like nested iterators, so we'll use old school loop
                 for(int i = 0; i < region.getChunks().size; i++) {
                     fetchBED(region.getChunks().get(i));
