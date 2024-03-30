@@ -27,7 +27,7 @@
       },
       {
         "id": "cosmic_reach",
-        "versions": "*"
+        "versions": ">=0.1.16"
       },
       {
         "id": "fluxapi",
