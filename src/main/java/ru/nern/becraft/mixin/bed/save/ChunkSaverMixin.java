@@ -1,7 +1,8 @@
 package ru.nern.becraft.mixin.bed.save;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import finalforeach.cosmicreach.io.ChunkSaver;
-import finalforeach.cosmicreach.world.World;
+import finalforeach.cosmicreach.world.Zone;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,10 +12,9 @@ import ru.nern.becraft.bed.BlockEntitySaveHandler;
 @Mixin(ChunkSaver.class)
 public class ChunkSaverMixin {
 
-    @Inject(method = "saveWorld", at = @At(value = "INVOKE",
-            target = "Ljava/io/PrintStream;println(Ljava/lang/String;)V", ordinal = 1))
-    private static void saveBEs(World world, CallbackInfo ci) {
-        BlockEntitySaveHandler.saveAllBlockEntities(world);
+    @Inject(method = "saveWorld", at = @At(value = "INVOKE", target = "Lfinalforeach/cosmicreach/io/ChunkSaver;saveZone(Lfinalforeach/cosmicreach/world/Zone;)V", shift = At.Shift.AFTER))
+    private static void saveBEs(CallbackInfo ci, @Local Zone zone) {
+        BlockEntitySaveHandler.saveAllBlockEntities(zone);
     }
 
 }

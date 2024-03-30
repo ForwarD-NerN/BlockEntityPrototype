@@ -4,7 +4,7 @@ import ru.nern.becraft.bed.api.BlockEntity;
 
 import java.util.Set;
 
-public interface WorldBEAccess {
+public interface ZoneBEAccess {
     /**
      * Returns the list of all loaded block entities
      */

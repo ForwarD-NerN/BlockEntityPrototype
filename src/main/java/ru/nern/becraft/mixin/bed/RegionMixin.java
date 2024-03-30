@@ -1,7 +1,7 @@
 package ru.nern.becraft.mixin.bed;
 
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.chunks.Region;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Region;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import ru.nern.becraft.bed.api.internal.RegionBEAccess;

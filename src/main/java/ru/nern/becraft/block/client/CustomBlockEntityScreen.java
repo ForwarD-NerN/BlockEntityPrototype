@@ -95,6 +95,27 @@ public class CustomBlockEntityScreen extends SimpleBlockEntityScreen<CustomBlock
         };
         rotationSlider.show();
         this.uiElements.add(rotationSlider);
+
+        UIElement catchMode = new UIElement(0.0F, 100.0F, 300.0F, 50.0F) {
+            @Override
+            public void onCreate() {
+                super.onCreate();
+                updateText();
+            }
+
+            public void onClick() {
+                super.onClick();
+                blockEntity.catchMode = !blockEntity.catchMode;
+                updateText();
+            }
+
+            @Override
+            public void updateText() {
+                this.setText("Catch Me If You Can Mode: " +blockEntity.catchMode);
+            }
+        };
+        catchMode.show();
+        this.uiElements.add(catchMode);
     }
 
     public void resize(int width, int height) {

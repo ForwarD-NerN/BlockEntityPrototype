@@ -1,16 +1,16 @@
 package ru.nern.becraft.mixin.bed;
 
-import finalforeach.cosmicreach.world.World;
+import finalforeach.cosmicreach.world.Zone;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import ru.nern.becraft.bed.api.BlockEntity;
-import ru.nern.becraft.bed.api.internal.WorldBEAccess;
+import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Mixin(World.class)
-public abstract class WorldMixin implements WorldBEAccess {
+@Mixin(Zone.class)
+public abstract class ZoneMixin implements ZoneBEAccess {
     @Unique private final Set<BlockEntity> loadedBlockEntities = new HashSet<>();
     @Override
     public Set<BlockEntity> getLoadedBlockEntities() {

@@ -1,20 +1,19 @@
 package ru.nern.becraft.mixin.bed;
 
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
-import finalforeach.cosmicreach.world.chunks.Chunk;
-import finalforeach.cosmicreach.world.chunks.Region;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Chunk;
+import finalforeach.cosmicreach.world.Region;
+import finalforeach.cosmicreach.world.Zone;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.nern.becraft.bed.BEUtils;
-import ru.nern.becraft.bed.BlockEntitySaveHandler;
+import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.internal.ChunkBEAccess;
-import ru.nern.becraft.bed.api.internal.WorldBEAccess;
+import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +30,8 @@ public class ChunkMixin implements ChunkBEAccess {
     }
 
     @Override
-    public void setBlockEntity(World world, BlockEntity blockEntity) {
-        ((WorldBEAccess)world).getLoadedBlockEntities().add(blockEntity);
+    public void setBlockEntity(Zone zone, BlockEntity blockEntity) {
+        ((ZoneBEAccess)zone).getLoadedBlockEntities().add(blockEntity);
 
         if(region != null)
             BEUtils.removeFromRegionRemovalList(region, blockEntity.getBlockPos());

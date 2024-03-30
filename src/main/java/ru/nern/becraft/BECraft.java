@@ -1,11 +1,11 @@
 package ru.nern.becraft;
 
-import dev.crmodders.flux.registry.StableRegistries;
+import dev.crmodders.flux.registry.FluxRegistries;
 import dev.crmodders.flux.tags.Identifier;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.nern.becraft.bed.BEUtils;
+import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.BlockEntityRegistries;
 import ru.nern.becraft.bed.api.BlockEntityType;
 import ru.nern.becraft.block.BETestBlock;
@@ -23,7 +23,7 @@ public class BECraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		StableRegistries.BLOCKS.register(TEST_BLOCK_ID, new BETestBlock());
+		FluxRegistries.BLOCKS.register(TEST_BLOCK_ID, new BETestBlock());
 
 		BlockEntityRegistries.BLOCK_ENTITIES.register(CUSTOM_BE_IDENTIFIER, CUSTOM_BE_TYPE);
 	}

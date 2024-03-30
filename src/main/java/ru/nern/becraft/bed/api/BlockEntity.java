@@ -1,25 +1,26 @@
 package ru.nern.becraft.bed.api;
 
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
+
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Zone;
 import net.querz.nbt.tag.CompoundTag;
 
 public class BlockEntity {
     private final BlockEntityType<?> type;
     private BlockPosition blockPos;
-    private final World world;
+    private final Zone zone;
     private boolean removed;
     private boolean initialized;
     private boolean wasSavedAtLeastOnce;
 
-    public BlockEntity(BlockEntityType<?> type, World world, BlockPosition blockPos) {
+    public BlockEntity(BlockEntityType<?> type, Zone zone, BlockPosition blockPos) {
         this.blockPos = blockPos;
-        this.world = world;
+        this.zone = zone;
         this.type = type;
     }
 
-    public World getWorld() {
-        return this.world;
+    public Zone getZone() {
+        return this.zone;
     }
 
     public void setBlockPos(BlockPosition blockPos) {

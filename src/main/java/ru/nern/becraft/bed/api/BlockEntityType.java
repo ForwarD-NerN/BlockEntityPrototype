@@ -1,8 +1,8 @@
 package ru.nern.becraft.bed.api;
 
 import dev.crmodders.flux.tags.Identifier;
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Zone;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,8 +23,8 @@ public class BlockEntityType<T extends BlockEntity> {
         return identifier;
     }
 
-    public T instantiate(World world, BlockPosition position) {
-       return this.factory.create(world, position);
+    public T instantiate(Zone zone, BlockPosition position) {
+       return this.factory.create(zone, position);
     }
 
     public boolean isBlockSupported(String blockId) {
@@ -37,6 +37,6 @@ public class BlockEntityType<T extends BlockEntity> {
 
     @FunctionalInterface
     public interface BlockEntityFactory<T extends BlockEntity> {
-        T create(World world, BlockPosition position);
+        T create(Zone zone, BlockPosition position);
     }
 }

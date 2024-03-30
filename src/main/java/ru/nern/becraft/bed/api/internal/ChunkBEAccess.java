@@ -1,11 +1,10 @@
 package ru.nern.becraft.bed.api.internal;
 
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Zone;
 import ru.nern.becraft.bed.api.BlockEntity;
 
 import java.util.Map;
-import java.util.Set;
 
 public interface ChunkBEAccess {
     /**
@@ -16,7 +15,7 @@ public interface ChunkBEAccess {
     /**
      * Sets a block entity at the specified position.
      */
-    void setBlockEntity(World world, BlockEntity blockEntity);
+    void setBlockEntity(Zone zone, BlockEntity blockEntity);
 
     /**
      * Removes the block entity at the specified position.

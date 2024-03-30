@@ -1,6 +1,6 @@
 package ru.nern.becraft.bed.api.internal;
 
-import finalforeach.cosmicreach.world.BlockPosition;
+import finalforeach.cosmicreach.blocks.BlockPosition;
 
 import java.util.Set;
 

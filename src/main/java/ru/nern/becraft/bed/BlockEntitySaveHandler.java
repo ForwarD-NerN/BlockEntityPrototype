@@ -1,9 +1,9 @@
 package ru.nern.becraft.bed;
 
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
-import finalforeach.cosmicreach.world.chunks.Chunk;
-import finalforeach.cosmicreach.world.chunks.Region;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.world.Chunk;
+import finalforeach.cosmicreach.world.Region;
+import finalforeach.cosmicreach.world.Zone;
 import net.querz.nbt.io.NBTUtil;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
@@ -20,16 +20,16 @@ import java.util.*;
 public class BlockEntitySaveHandler {
     private static final CompoundTag saveCompound = new CompoundTag();
 
-    //Saves all block entities in the world
-    public static void saveAllBlockEntities(World world) {
+    //Saves all block entities in the zone
+    public static void saveAllBlockEntities(Zone zone) {
         try {
             BECraft.LOGGER.info("Started saving BED");
-            for(Region region : world.regions.values()) {
+            for(Region region : zone.regions.values()) {
                 //Gdx doesn't like nested iterators, so we'll use old school loop
                 for(int i = 0; i < region.getChunks().size; i++) {
                     fetchBED(region.getChunks().get(i));
                 }
-                saveBED(region, world.getFullSaveFolder());
+                saveBED(region, zone.getFullSaveFolder());
             }
             BECraft.LOGGER.info("Finished saving BED");
         }catch (Exception e) {
@@ -39,12 +39,12 @@ public class BlockEntitySaveHandler {
     }
 
     //Saves all block entities in the region
-    public static void saveBlockEntitiesInRegion(World world, Region region) {
+    public static void saveBlockEntitiesInRegion(Zone zone, Region region) {
         try {
             for (Chunk chunk : region.getChunks()) {
                 fetchBED(chunk);
             }
-            saveBED(region, world.getFullSaveFolder());
+            saveBED(region, zone.getFullSaveFolder());
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -80,6 +80,7 @@ public class BlockEntitySaveHandler {
     }
 
 
+    //TODO: CHANGE
     private static void saveBED(Region region, String worldFolderName) {
         try {
             if(saveCompound.size() > 0 || !((RegionBEAccess)region).getRemovedBEPositions().isEmpty()) {
@@ -116,6 +117,7 @@ public class BlockEntitySaveHandler {
                 CompoundTag tag = compoundIterator.next();
 
                 if(tag.getInt("x") == position.getGlobalX() && tag.getInt("y") == position.getGlobalY() && tag.getInt("z") == position.getGlobalZ()) {
+                    System.out.println("Removing block entity at pos " + position.getGlobalX() + " " +position.getGlobalY() + " " + position.getGlobalZ());
                     compoundIterator.remove();
                     break;
                 }

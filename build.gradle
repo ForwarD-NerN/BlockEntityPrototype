@@ -68,14 +68,15 @@ jar {
 dependencies {
     // Cosmic Reach jar
     cosmicreach "finalforeach:cosmicreach:${cosmic_reach_version}"
-    // cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
+    //cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
 
     // Cosmic Quilt
     implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
 
     // FluxAPI
     //  If you don't want FluxAPI included in your project, remove this and the reference in the `gradle.properties`
-    quiltMod "com.github.CRModders:FluxAPI:${fluxapi_version}"
+    //quiltMod "com.github.CRModders:FluxAPI:${fluxapi_version}"
+    quiltMod fileTree(dir: 'run/', include: ['*.jar'])
 
     implementation 'com.github.Querz:NBT:6.1'
 }

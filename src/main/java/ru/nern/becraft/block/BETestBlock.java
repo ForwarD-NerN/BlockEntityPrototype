@@ -2,11 +2,11 @@ package ru.nern.becraft.block;
 
 import dev.crmodders.flux.api.block.IModBlock;
 import dev.crmodders.flux.api.generators.BlockGenerator;
-import finalforeach.cosmicreach.world.BlockPosition;
-import finalforeach.cosmicreach.world.World;
-import finalforeach.cosmicreach.world.blocks.BlockState;
-import finalforeach.cosmicreach.world.entities.Player;
-import ru.nern.becraft.bed.BEUtils;
+import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.blocks.BlockState;
+import finalforeach.cosmicreach.entities.Player;
+import finalforeach.cosmicreach.world.Zone;
+import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.BlockWithEntity;
 
@@ -19,21 +19,21 @@ public class BETestBlock extends BlockWithEntity implements IModBlock {
 
 
     @Override
-    public void onInteract(World world, Player player, BlockState blockState, BlockPosition position) {
+    public void onInteract(Zone zone, Player player, BlockState blockState, BlockPosition position) {
         if(BEUtils.getBlockEntity(position) instanceof CustomBlockEntity be) {
             be.onInteract();
         }
     }
 
     @Override
-    public void onPlace(World world, Player player, BlockState blockState, BlockPosition position) {
-        super.onPlace(world, player, blockState, position);
+    public void onPlace(Zone zone, Player player, BlockState blockState, BlockPosition position) {
+        super.onPlace(zone, player, blockState, position);
         System.out.println("ON PLACE");
     }
 
     @Override
-    public void onBreak(World world, Player player, BlockState blockState, BlockPosition position) {
-        super.onBreak(world, player, blockState, position);
+    public void onBreak(Zone zone, Player player, BlockState blockState, BlockPosition position) {
+        super.onBreak(zone, player, blockState, position);
         System.out.println("ON BREAK");
     }
 
@@ -43,7 +43,7 @@ public class BETestBlock extends BlockWithEntity implements IModBlock {
     }
 
     @Override
-    public BlockEntity createBlockEntity(World world, BlockPosition position) {
-        return new CustomBlockEntity(world, position);
+    public BlockEntity createBlockEntity(Zone zone, BlockPosition position) {
+        return new CustomBlockEntity(zone, position);
     }
 }
