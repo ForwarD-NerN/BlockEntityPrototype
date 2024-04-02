@@ -15,7 +15,9 @@ import ru.nern.becraft.bed.api.internal.RegionBEAccess;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class BlockEntitySaveHandler {
     private static final CompoundTag saveCompound = new CompoundTag();

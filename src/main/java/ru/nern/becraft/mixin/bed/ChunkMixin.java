@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.internal.ChunkBEAccess;
 import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
+import ru.nern.becraft.bed.utils.BEUtils;
 
 import java.util.HashMap;
 import java.util.Map;

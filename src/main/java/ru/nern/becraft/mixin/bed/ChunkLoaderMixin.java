@@ -5,8 +5,8 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import dev.crmodders.flux.registry.registries.AccessableRegistry;
 import dev.crmodders.flux.tags.Identifier;
-import finalforeach.cosmicreach.io.ChunkLoader;
 import finalforeach.cosmicreach.blocks.BlockPosition;
+import finalforeach.cosmicreach.io.ChunkLoader;
 import finalforeach.cosmicreach.world.Chunk;
 import finalforeach.cosmicreach.world.Region;
 import finalforeach.cosmicreach.world.Zone;
@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ru.nern.becraft.BECraft;
-import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.BlockEntityRegistries;
 import ru.nern.becraft.bed.BlockEntitySaveHandler;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.BlockEntityType;
+import ru.nern.becraft.bed.utils.BEUtils;
 
 import java.io.File;
 

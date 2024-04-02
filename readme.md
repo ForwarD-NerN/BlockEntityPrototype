@@ -1,5 +1,17 @@
-# The Block Entity System Prototype
+# Cosmic Quilt Example Mod
+> The example mod for the [Cosmic Quilt](https://codeberg.org/CRModders/cosmic-quilt) Loader
 
-This mod adds the block entity system to Cosmic Reach.
+## How to test/build
+For testing in the dev env, you can use the `gradle run` task
 
-Uses this [NBT library](https://github.com/Querz/NBT) to save/read block entity data.
+For building, the usual `gradle build` task can ba used\
+the output will be in the `build/libs/` folder
+
+## Wiki
+For a wiki on how to use Cosmic Quilt & Quilt, please look at the [Cosmic Quilt wiki](https://codeberg.org/CRModders/cosmic-quilt/wiki) 
+
+## Notes
+- Most project properties can be changed in the `gradle.properties`
+- To change author, description and stuff that isnt there, edit `src/main/resources/quilt.mod.json`
+- The project name is defined in `settings.gradle`
+- To add Quilt mods in the build, make sure to use `quiltMod` rather than `implementation`

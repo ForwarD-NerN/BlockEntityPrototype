@@ -41,7 +41,6 @@ public class MutableBlockPosition extends BlockPosition {
         this.z = z;
     }
 
-
     @Override
     public int getGlobalX() {
         return x;

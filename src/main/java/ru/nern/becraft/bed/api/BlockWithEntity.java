@@ -4,7 +4,6 @@ import dev.crmodders.flux.api.block.IFunctionalBlock;
 import finalforeach.cosmicreach.blocks.BlockPosition;
 import finalforeach.cosmicreach.blocks.BlockState;
 import finalforeach.cosmicreach.entities.Player;
-
 import finalforeach.cosmicreach.world.Zone;
 import ru.nern.becraft.bed.utils.BEUtils;
 

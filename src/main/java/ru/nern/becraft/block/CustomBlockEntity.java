@@ -9,9 +9,9 @@ import finalforeach.cosmicreach.ui.UIElement;
 import finalforeach.cosmicreach.world.Zone;
 import net.querz.nbt.tag.CompoundTag;
 import ru.nern.becraft.BECraft;
+import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.utils.BEModUtils;
 import ru.nern.becraft.bed.utils.BEUtils;
-import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.block.client.CustomBlockEntityRenderer;
 import ru.nern.becraft.block.client.CustomBlockEntityScreen;
 

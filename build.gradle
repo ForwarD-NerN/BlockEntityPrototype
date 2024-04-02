@@ -45,18 +45,15 @@ repositories {
 configurations {
     cosmicreach // Config to provide the Cosmic Reach project
     compileOnly.extendsFrom(cosmicreach) // Allows cosmic reach to be used in the codebase
-
-    quiltMod // Config to be able to load Quilt Mods
-    implementation.extendsFrom(quiltMod)
-
 }
 
+
+//Includes NBT library in the mod's jar.
 jar {
     from {
         configurations
                 .runtimeClasspath
                 .collect {
-
                     if(it.name.equalsIgnoreCase("NBT-6.1.jar")) {
                         project.logger.lifecycle('File: ' +it.name)
                         zipTree(it)
@@ -72,13 +69,10 @@ dependencies {
 
     // Cosmic Quilt
     implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
+    implementation "com.github.CRModders:FluxAPI:${fluxapi_version}"
 
-    // FluxAPI
-    //  If you don't want FluxAPI included in your project, remove this and the reference in the `gradle.properties`
-    quiltMod "com.github.CRModders:FluxAPI:${fluxapi_version}"
     //quiltMod fileTree(dir: 'run/', include: ['*.jar'])
-
-    implementation 'com.github.Querz:NBT:6.1'
+    implementation "com.github.Querz:NBT:6.1"
 }
 
 processResources {
@@ -108,21 +102,9 @@ application {
     mainClass = "org.quiltmc.loader.impl.launch.knot.KnotClient"
 }
 
-// Sets up all the Quilt Mods
-def String getQuiltModLocations(Configuration config) {
-    StringBuilder sb = new StringBuilder()
-    for (obj in config.allDependencies) {
-        sb.append(File.pathSeparator + config.files(obj)[0])
-    }
-    return sb.toString()
-}
-
 applicationDefaultJvmArgs = [
-        "-Dloader.skipMcProvider=true", // Stops Quilt from attempting to find mappings, and all the other Minecraft stuff
+        "-Dloader.development=true", // Allows stuff to be found through the classpath
         "-Dloader.gameJarPath=" + configurations.cosmicreach.asPath, // Defines path to Cosmic Reach
-        "-Dloader.addMods=" +
-                jar.archiveFile.get().asFile + // Add the jar of this project
-                getQuiltModLocations(configurations.quiltMod) // Adds the jars of any Quilt mods added
 ]
 
 run {
@@ -157,4 +139,5 @@ publishing {
 		    from components.java
         }
     }
+    repositories {}
 }

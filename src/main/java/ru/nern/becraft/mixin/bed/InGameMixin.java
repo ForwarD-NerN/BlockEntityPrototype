@@ -1,7 +1,6 @@
 package ru.nern.becraft.mixin.bed;
 
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.esotericsoftware.asm.Opcodes;
 import finalforeach.cosmicreach.entities.Player;
 import finalforeach.cosmicreach.gamestates.InGame;
 import finalforeach.cosmicreach.world.World;
@@ -9,11 +8,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
+import ru.nern.becraft.bed.utils.BEUtils;
 
 import java.util.Iterator;
 

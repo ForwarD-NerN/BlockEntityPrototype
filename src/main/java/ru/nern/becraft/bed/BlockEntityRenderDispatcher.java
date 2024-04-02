@@ -3,13 +3,11 @@ package ru.nern.becraft.bed;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import finalforeach.cosmicreach.gamestates.InGame;
-import finalforeach.cosmicreach.blocks.BlockPosition;
 import org.jetbrains.annotations.Nullable;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.BlockEntityType;
 import ru.nern.becraft.bed.api.client.BlockEntityRenderer;
 import ru.nern.becraft.bed.utils.BEModUtils;
-import ru.nern.becraft.bed.utils.BEUtils;
 
 import java.util.HashMap;
 import java.util.Map;
