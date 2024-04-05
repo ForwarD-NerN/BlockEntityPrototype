@@ -119,7 +119,7 @@ public class BlockEntitySaveHandler {
                 CompoundTag tag = compoundIterator.next();
 
                 if(tag.getInt("x") == position.getGlobalX() && tag.getInt("y") == position.getGlobalY() && tag.getInt("z") == position.getGlobalZ()) {
-                    System.out.println("Removing block entity at pos " + position.getGlobalX() + " " +position.getGlobalY() + " " + position.getGlobalZ());
+                    BECraft.LOGGER.info("Removing block entity at pos " + position.getGlobalX() + " " +position.getGlobalY() + " " + position.getGlobalZ());
                     compoundIterator.remove();
                     break;
                 }

@@ -79,6 +79,7 @@ public class ChunkLoaderMixin {
                             //Checking if a block entity supports the block at given coordinates.
                             //We can't use getBlockState().getBlock() here, as we can't get our block instance in any way.
                             if(type.isBlockSupported(chunk.getBlockState(x, y, z).getBlock().getStringId())) {
+
                                 BlockEntity blockEntity = type.instantiate(zone, new BlockPosition(chunk, x, y, z));
                                 try {
                                     blockEntity.readData(beCompound);
@@ -94,7 +95,7 @@ public class ChunkLoaderMixin {
                             }
 
                         }else {
-                            BECraft.LOGGER.debug("The block entity registry doesn't contain " +id + ". It was removed?");
+                            BECraft.LOGGER.warn("The block entity registry doesn't contain " +id + ". It was removed?");
                         }
 
                     });
