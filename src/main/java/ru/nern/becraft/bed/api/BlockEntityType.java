@@ -28,7 +28,11 @@ public class BlockEntityType<T extends BlockEntity> {
     }
 
     public boolean isBlockSupported(String blockId) {
-        return supportedBlocks.contains(blockId);
+        for(String supported : supportedBlocks) {
+            if(blockId.startsWith(supported))
+                return true;
+        }
+        return false;
     }
 
     public void addSupportedBlock(String blockId) {
