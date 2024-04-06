@@ -1,13 +1,14 @@
 package ru.nern.becraft.bed.api;
 
 import dev.crmodders.flux.api.block.IFunctionalBlock;
+import dev.crmodders.flux.api.block.IModBlock;
 import finalforeach.cosmicreach.blocks.BlockPosition;
 import finalforeach.cosmicreach.blocks.BlockState;
 import finalforeach.cosmicreach.entities.Player;
 import finalforeach.cosmicreach.world.Zone;
 import ru.nern.becraft.bed.utils.BEUtils;
 
-public abstract class BlockWithEntity implements IFunctionalBlock {
+public abstract class BlockWithEntity implements IModBlock {
     public abstract BlockEntity createBlockEntity(Zone zone, BlockPosition position);
 
     @Override

@@ -47,9 +47,9 @@ public class BlockEntity {
 
     public CompoundTag writeData(CompoundTag compound) {
         compound.putString("id", type.getId().toString());
-        compound.putInt("x", blockPos.getGlobalX());
-        compound.putInt("y", blockPos.getGlobalY());
-        compound.putInt("z", blockPos.getGlobalZ());
+        compound.putInt("lx", blockPos.localX());
+        compound.putInt("ly", blockPos.localY());
+        compound.putInt("lz", blockPos.localZ());
         return compound;
     }
     public void readData(CompoundTag compound) {}

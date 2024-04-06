@@ -4,7 +4,6 @@
   "package": "ru.nern.becraft.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "bed.BlockGameMixin",
     "bed.BlockSetterMixin",
     "bed.ChunkLoaderMixin",
     "bed.ChunkMixin",

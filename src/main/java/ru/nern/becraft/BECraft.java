@@ -1,5 +1,6 @@
 package ru.nern.becraft;
 
+import dev.crmodders.flux.api.events.GameEvents;
 import dev.crmodders.flux.registry.FluxRegistries;
 import dev.crmodders.flux.tags.Identifier;
 import net.fabricmc.api.ModInitializer;
@@ -16,19 +17,21 @@ public class BECraft implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("BE Craft");
 	public static final String MOD_ID = "becraft";
 	public static final Identifier TEST_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "be_test");
-	public static final Identifier CUSTOM_BE_IDENTIFIER = new Identifier(BECraft.MOD_ID, "custom_block_entity");
 
-	public static BlockEntityType<CustomBlockEntity> CUSTOM_BE_TYPE = new BlockEntityType<>(CUSTOM_BE_IDENTIFIER,
+	public static BlockEntityType<CustomBlockEntity> CUSTOM_BE_TYPE = new BlockEntityType<>(new Identifier(BECraft.MOD_ID, "custom_block_entity"),
 			CustomBlockEntity::new, TEST_BLOCK_IDENTIFIER.toString());
 
 	@Override
 	public void onInitialize() {
 		FluxRegistries.BLOCKS.register(TEST_BLOCK_IDENTIFIER, new BETestBlock());
 		BlockEntityRegistries.register(CUSTOM_BE_TYPE);
-	}
 
-	public static void initRenderers() {
-		BEUtils.renderDispatcher.registerRender(BECraft.CUSTOM_BE_TYPE, new CustomBlockEntityRenderer());
+		GameEvents.ON_GAME_INITIALIZED.register(() -> {
+			//You don't need to put this line in your mod
+			BlockEntityRegistries.BLOCK_ENTITIES.freeze();
+
+			BEUtils.renderDispatcher.registerRender(BECraft.CUSTOM_BE_TYPE, new CustomBlockEntityRenderer());
+        });
 	}
 }
 

@@ -9,11 +9,16 @@ import finalforeach.cosmicreach.gamestates.GameState;
 import finalforeach.cosmicreach.world.Chunk;
 import finalforeach.cosmicreach.world.Region;
 import finalforeach.cosmicreach.world.Zone;
-import ru.nern.becraft.bed.BlockEntityRenderDispatcher;
+import net.querz.nbt.tag.CompoundTag;
+import ru.nern.becraft.bed.api.BEReference;
+import ru.nern.becraft.bed.handlers.BlockEntityLoadHandler;
+import ru.nern.becraft.bed.handlers.BlockEntityRenderDispatcher;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.client.SimpleBlockEntityScreen;
 import ru.nern.becraft.bed.api.internal.ChunkBEAccess;
-import ru.nern.becraft.bed.api.internal.RegionBEAccess;
+import ru.nern.becraft.bed.handlers.BlockEntitySaveHandler;
+
+import java.util.Optional;
 
 public class BEUtils {
     public static final BlockState AIR = Block.AIR.getDefaultBlockState();
@@ -35,6 +40,37 @@ public class BEUtils {
         Gdx.input.setCursorCatched(false);
         GameState.switchToGameState(screen);
     }
+
+    public static Optional<BEReference> getBEReference(Zone zone, BlockPosition position) {
+        return getBEReference(zone, position.getGlobalX(), position.getGlobalY(), position.getGlobalZ());
+    }
+
+    //Gets a reference to BE containing id, block pos, compound and the block entity object (if the block entity is loaded)
+    public static Optional<BEReference> getBEReference(Zone zone, int x, int y, int z) {
+        Chunk chunk = zone.getChunkAtBlock(x, y, z);
+        int cx = Math.floorDiv(x, 16);
+        int cy = Math.floorDiv(y, 16);
+        int cz = Math.floorDiv(z, 16);
+
+        //If the block entity is loaded
+        if(chunk != null) {
+            BlockPosition position = new BlockPosition(chunk, x - (16 * cx), y - (16 * cy), z - (16 * cz));
+            BlockEntity blockEntity = ((ChunkBEAccess)chunk).getBlockEntity(position);
+
+            if(blockEntity != null && !blockEntity.isRemoved()) {
+                return Optional.of(new BEReference(blockEntity, blockEntity.getZone(), SimpleBlockPosition.fromBlockPosition(position), blockEntity.writeData(new CompoundTag())));
+            }
+        //If it's not loaded
+        }else{
+            CompoundTag tag = BlockEntityLoadHandler.loadBECompound(zone, x, y, z);
+            if(tag != null) {
+                return Optional.of(new BEReference(null, zone, SimpleBlockPosition.fromNBT(cx, cy, cz, tag), tag));
+            }
+
+        }
+        return Optional.empty();
+    }
+
 
     /**
      * Moves block entity to a given position.
@@ -60,7 +96,7 @@ public class BEUtils {
             ((ChunkBEAccess)oldChunk).getBlockEntities().remove(blockEntity.getBlockPos(), blockEntity);
 
             if(newRegion != null) {
-                BEUtils.removeFromRegionRemovalList(newRegion, newPosition);
+                BlockEntitySaveHandler.removeFromRegionRemovalList(newRegion, newPosition);
                 ((ChunkBEAccess)newChunk).getBlockEntities().put(newPosition, blockEntity);
 
                 if(moveBlock) {
@@ -70,7 +106,7 @@ public class BEUtils {
                 }
 
                 if(blockEntity.wasSavedAtLeastOnce())
-                    BEUtils.addToRegionRemovalList(oldChunk.region, oldPosition);
+                    BlockEntitySaveHandler.addToRegionRemovalList(oldChunk.region, oldPosition);
 
                 blockEntity.setBlockPos(newPosition);
                 newChunk.flagTouchingChunksForRemeshing(zone, newPosition.localX(), newPosition.localY(), newPosition.localZ(), true);
@@ -82,15 +118,5 @@ public class BEUtils {
         }
 
         return false;
-    }
-
-
-
-    public static void addToRegionRemovalList(Region region, BlockPosition position) {
-        ((RegionBEAccess)region).addRemovedBEPosition(position);
-    }
-
-    public static void removeFromRegionRemovalList(Region region, BlockPosition position) {
-        ((RegionBEAccess)region).removeDeletedBEPosition(position);
     }
 }

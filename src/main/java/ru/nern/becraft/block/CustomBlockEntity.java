@@ -9,12 +9,14 @@ import finalforeach.cosmicreach.ui.UIElement;
 import finalforeach.cosmicreach.world.Zone;
 import net.querz.nbt.tag.CompoundTag;
 import ru.nern.becraft.BECraft;
+import ru.nern.becraft.bed.api.BEReference;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.utils.BEModUtils;
 import ru.nern.becraft.bed.utils.BEUtils;
 import ru.nern.becraft.block.client.CustomBlockEntityRenderer;
 import ru.nern.becraft.block.client.CustomBlockEntityScreen;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class CustomBlockEntity extends BlockEntity {
@@ -52,7 +54,24 @@ public class CustomBlockEntity extends BlockEntity {
     }
 
     public void onInteract() {
-        BEUtils.switchToScreen(new CustomBlockEntityScreen(this));
+        if(InGame.getLocalPlayer().getEntity().isSneaking) {
+            Optional<BEReference> optional = BEUtils.getBEReference(getZone(), -205, 44, 15);
+            if(optional.isPresent()) {
+                BEReference reference = optional.get();
+                BECraft.LOGGER.info("Reference: " + reference);
+                BECraft.LOGGER.info("Modifying the target block entity's rotation speed!");
+
+                reference.getCompound().putInt("Rotation", 1000);
+                reference.applyCompoundChanges();
+            }else{
+               BECraft.LOGGER.info("The block entity wasn't found");
+            }
+        }else {
+            BEUtils.switchToScreen(new CustomBlockEntityScreen(this));
+        }
+
+
+
     }
 
     @Override

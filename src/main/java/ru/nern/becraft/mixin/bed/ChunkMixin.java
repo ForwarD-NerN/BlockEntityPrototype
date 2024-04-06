@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ru.nern.becraft.bed.api.BlockEntity;
 import ru.nern.becraft.bed.api.internal.ChunkBEAccess;
 import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
-import ru.nern.becraft.bed.utils.BEUtils;
+import ru.nern.becraft.bed.handlers.BlockEntitySaveHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class ChunkMixin implements ChunkBEAccess {
         ((ZoneBEAccess)zone).getLoadedBlockEntities().add(blockEntity);
 
         if(region != null)
-            BEUtils.removeFromRegionRemovalList(region, blockEntity.getBlockPos());
+            BlockEntitySaveHandler.removeFromRegionRemovalList(region, blockEntity.getBlockPos());
 
         blockEntityMap.put(blockEntity.getBlockPos(), blockEntity);
     }
@@ -46,7 +46,7 @@ public class ChunkMixin implements ChunkBEAccess {
             blockEntity.setRemoved();
             blockEntityMap.remove(position);
             if(blockEntity.wasSavedAtLeastOnce())  {
-                BEUtils.addToRegionRemovalList(region, position);
+                BlockEntitySaveHandler.addToRegionRemovalList(region, position);
             }
         }
     }
@@ -64,6 +64,5 @@ public class ChunkMixin implements ChunkBEAccess {
     @Inject(method = "dispose", at = @At("TAIL"))
     private void onUnload(CallbackInfo ci) {
         blockEntityMap.forEach((position, blockEntity) -> blockEntity.setRemoved());
-        blockEntityMap.clear();
     }
 }
