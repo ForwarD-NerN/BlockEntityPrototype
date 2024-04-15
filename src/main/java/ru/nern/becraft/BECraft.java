@@ -1,9 +1,10 @@
 package ru.nern.becraft;
 
+import dev.crmodders.cosmicquilt.api.entrypoint.ModInitializer;
 import dev.crmodders.flux.api.events.GameEvents;
 import dev.crmodders.flux.registry.FluxRegistries;
 import dev.crmodders.flux.tags.Identifier;
-import net.fabricmc.api.ModInitializer;
+import org.quiltmc.loader.api.ModContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.nern.becraft.bed.BlockEntityRegistries;
@@ -22,16 +23,17 @@ public class BECraft implements ModInitializer {
 			CustomBlockEntity::new, TEST_BLOCK_IDENTIFIER.toString());
 
 	@Override
-	public void onInitialize() {
+	public void onInitialize(ModContainer mod) {
 		FluxRegistries.BLOCKS.register(TEST_BLOCK_IDENTIFIER, new BETestBlock());
 		BlockEntityRegistries.register(CUSTOM_BE_TYPE);
 
-		GameEvents.ON_GAME_INITIALIZED.register(() -> {
+		GameEvents.ON_INIT.register(() -> {
 			//You don't need to put this line in your mod
 			BlockEntityRegistries.BLOCK_ENTITIES.freeze();
 
+			//Registering custom block entity renderer
 			BEUtils.renderDispatcher.registerRender(BECraft.CUSTOM_BE_TYPE, new CustomBlockEntityRenderer());
-        });
+		});
 	}
 }
 

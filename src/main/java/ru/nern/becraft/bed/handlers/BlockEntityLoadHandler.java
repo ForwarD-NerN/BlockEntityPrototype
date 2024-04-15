@@ -30,7 +30,7 @@ public class BlockEntityLoadHandler {
         int formatVersion = rootTag.getInt("version");
 
         //Getting the accessible instance of the block entity registry
-        AccessableRegistry<BlockEntityType<?>> registry = (AccessableRegistry<BlockEntityType<?>>) BlockEntityRegistries.BLOCK_ENTITIES;
+        AccessableRegistry<BlockEntityType<?>> registry = BlockEntityRegistries.BLOCK_ENTITIES.access();
         beTagList.forEach(beTag -> {
             Identifier id = Identifier.fromString(beTag.getString("id"));
 

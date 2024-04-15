@@ -1,0 +1,14 @@
+{
+  "stringId": "becraft:be_test",
+  "blockStates":
+  {
+    "default":
+    {
+      "modelName": "model_metal_panel",
+      "isOpaque": true,
+      "isTransparent": true,
+      "lightAttenuation": 0,
+      "generateSlabs": false
+    }
+  }
+}

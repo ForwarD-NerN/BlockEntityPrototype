@@ -34,7 +34,7 @@ public class CustomBlockEntityScreen extends SimpleBlockEntityScreen<CustomBlock
             }
         };
         monkeyMode.show();
-        this.uiElements.add(monkeyMode);
+        this.uiObjects.add(monkeyMode);
 
         UISlider scaleSlider = new UISlider(0.01F, 1.5F, blockEntity.scale, 0F, -100.0F, 250.0F, 50.0F) {
 
@@ -70,7 +70,7 @@ public class CustomBlockEntityScreen extends SimpleBlockEntityScreen<CustomBlock
             }
         };
         scaleSlider.show();
-        this.uiElements.add(scaleSlider);
+        this.uiObjects.add(scaleSlider);
 
         UISlider rotationSlider = new UISlider(0F, 360F, blockEntity.rotationSpeed, 0F, 0.0F, 250.0F, 50.0F) {
             public void onCreate() {
@@ -94,7 +94,7 @@ public class CustomBlockEntityScreen extends SimpleBlockEntityScreen<CustomBlock
             }
         };
         rotationSlider.show();
-        this.uiElements.add(rotationSlider);
+        this.uiObjects.add(rotationSlider);
 
         UIElement catchMode = new UIElement(0.0F, 100.0F, 300.0F, 50.0F) {
             @Override
@@ -115,7 +115,7 @@ public class CustomBlockEntityScreen extends SimpleBlockEntityScreen<CustomBlock
             }
         };
         catchMode.show();
-        this.uiElements.add(catchMode);
+        this.uiObjects.add(catchMode);
     }
 
     public void resize(int width, int height) {

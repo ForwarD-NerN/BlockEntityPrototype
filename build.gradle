@@ -37,6 +37,7 @@ repositories {
         name "Sponge"
         url "https://repo.spongepowered.org/maven/"
     }
+    maven { url 'https://maven.crmodders.dev/releases' }
 
     mavenCentral()
 }
@@ -69,7 +70,7 @@ dependencies {
 
     // Cosmic Quilt
     implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
-    implementation "com.github.CRModders:FluxAPI:${fluxapi_version}"
+    implementation "dev.crmodders:fluxapi:${fluxapi_version}"
 
     //quiltMod fileTree(dir: 'run/', include: ['*.jar'])
     implementation "com.github.Querz:NBT:6.1"

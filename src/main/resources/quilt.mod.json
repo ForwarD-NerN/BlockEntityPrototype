@@ -17,7 +17,7 @@
     },
 
     "entrypoints": {
-      "main": "ru.nern.becraft.BECraft"
+      "init": "ru.nern.becraft.BECraft"
     },
 
     "depends": [
