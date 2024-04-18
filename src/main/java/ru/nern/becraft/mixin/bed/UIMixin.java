@@ -13,7 +13,7 @@ import ru.nern.becraft.bed.api.internal.ZoneBEAccess;
 
 @Mixin(UI.class)
 public class UIMixin {
-    //TODO: Fix(it doesn't work)
+    //TODO: Update. FFE please make atleast GetIntValue public....
     @Inject(method = "drawDebugText", at = @At(value = "INVOKE", target = "Lfinalforeach/cosmicreach/ui/FontRenderer;drawText(Lcom/badlogic/gdx/graphics/g2d/SpriteBatch;Lcom/badlogic/gdx/utils/viewport/Viewport;Ljava/lang/String;FF)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void addBEDebugText(CallbackInfo ci, @Local(ordinal = 5) LocalRef<String> debugText) {
         debugText.set(debugText.get() + "\nLoaded Block Entity Amount: " + ((ZoneBEAccess)InGame.getLocalPlayer().getZone(InGame.world)).getLoadedBlockEntities().size());

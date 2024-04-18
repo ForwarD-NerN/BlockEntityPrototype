@@ -9,7 +9,6 @@
     "bed.ChunkMixin",
     "bed.InGameMixin",
     "bed.RegionMixin",
-    "bed.UIMixin",
     "bed.ZoneMixin",
     "bed.save.ChunkSaverMixin",
     "bed.save.WorldLoaderMixin"

@@ -1,7 +1,7 @@
 package ru.nern.becraft;
 
 import dev.crmodders.cosmicquilt.api.entrypoint.ModInitializer;
-import dev.crmodders.flux.api.events.GameEvents;
+import dev.crmodders.flux.api.v5.events.GameEvents;
 import dev.crmodders.flux.registry.FluxRegistries;
 import dev.crmodders.flux.tags.Identifier;
 import org.quiltmc.loader.api.ModContainer;
@@ -33,6 +33,7 @@ public class BECraft implements ModInitializer {
 
 			//Registering custom block entity renderer
 			BEUtils.renderDispatcher.registerRender(BECraft.CUSTOM_BE_TYPE, new CustomBlockEntityRenderer());
+
 		});
 	}
 }

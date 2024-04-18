@@ -1,7 +1,6 @@
 package ru.nern.becraft.bed.api;
 
-import dev.crmodders.flux.api.block.IFunctionalBlock;
-import dev.crmodders.flux.api.block.IModBlock;
+import dev.crmodders.flux.api.v5.block.IModBlock;
 import finalforeach.cosmicreach.blocks.BlockPosition;
 import finalforeach.cosmicreach.blocks.BlockState;
 import finalforeach.cosmicreach.entities.Player;

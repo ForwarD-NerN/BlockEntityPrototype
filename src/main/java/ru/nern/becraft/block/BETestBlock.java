@@ -1,7 +1,6 @@
 package ru.nern.becraft.block;
 
-import dev.crmodders.flux.api.block.IModBlock;
-import dev.crmodders.flux.api.generators.BlockGenerator;
+import dev.crmodders.flux.api.v5.generators.BlockGenerator;
 import finalforeach.cosmicreach.blocks.BlockPosition;
 import finalforeach.cosmicreach.blocks.BlockState;
 import finalforeach.cosmicreach.entities.Player;

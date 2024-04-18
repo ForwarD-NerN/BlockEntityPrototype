@@ -69,12 +69,13 @@ dependencies {
     //cosmicreach fileTree(dir: 'run/', include: ['*.jar'])
 
     // Cosmic Quilt
-    implementation "org.codeberg.CRModders:cosmic-quilt:${cosmic_quilt_version}"
+    implementation "dev.crmodders:cosmicquilt:${cosmic_quilt_version}"
     implementation "dev.crmodders:fluxapi:${fluxapi_version}"
 
     //quiltMod fileTree(dir: 'run/', include: ['*.jar'])
     implementation "com.github.Querz:NBT:6.1"
 }
+
 
 processResources {
     def resourceTargets = [ // Locations of where to inject the properties
