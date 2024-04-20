@@ -11,7 +11,7 @@ import java.util.Set;
 public class BlockEntityType<T extends BlockEntity> {
     private final Identifier identifier;
     private final BlockEntityFactory<? extends T> factory;
-    public final Set<String> supportedBlocks;
+    private final Set<String> supportedBlocks;
 
     public BlockEntityType(Identifier identifier, BlockEntityFactory<? extends T> factory, String... supportedBlocks) {
         this.identifier = identifier;
@@ -33,6 +33,10 @@ public class BlockEntityType<T extends BlockEntity> {
 
     public void addSupportedBlock(String blockId) {
         supportedBlocks.add(blockId);
+    }
+
+    public Set<String> getSupportedBlocks() {
+        return supportedBlocks;
     }
 
     @FunctionalInterface

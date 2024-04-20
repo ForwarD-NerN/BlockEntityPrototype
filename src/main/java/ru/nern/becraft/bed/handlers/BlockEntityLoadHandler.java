@@ -19,8 +19,6 @@ import ru.nern.becraft.bed.utils.DataFixerUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.function.BiConsumer;
 
 public class BlockEntityLoadHandler {
     public static final int FORMAT_VERSION = 1;
@@ -50,7 +48,8 @@ public class BlockEntityLoadHandler {
 
                 //Checking if a block entity supports the block at given coordinates.
                 //We can't use getBlockState().getBlock() here, as we can't get our block instance in any way.
-                if(type.isBlockSupported(chunk.getBlockState(lx, ly, lz).getBlock().getStringId())) {
+                String blockId = chunk.getBlockState(lx, ly, lz).getBlock().getStringId();
+                if(type.isBlockSupported(blockId)) {
 
                     BlockEntity blockEntity = type.instantiate(zone, bePos);
                     try {
@@ -63,7 +62,9 @@ public class BlockEntityLoadHandler {
                     BEUtils.addBlockEntity(zone, blockEntity);
                 }else{
                     BlockEntitySaveHandler.addToRegionRemovalList(region, bePos);
-                    BECraft.LOGGER.info("The block at local pos " + bePos.getGlobalX() + " " + bePos.getGlobalY() + " " +bePos.getGlobalZ() + " is not supported by the block entity type " +type.getId().toString() + ". The block entity would be removed.");
+                    BECraft.LOGGER.info("The block at pos " + bePos.getGlobalX() + " " + bePos.getGlobalY() + " "
+                            + bePos.getGlobalZ() + " is not supported by " + type.getId().toString() + ". Expected: ["
+                            + String.join(",", type.getSupportedBlocks()) + "]. Got: " + blockId);
                 }
 
             }else {
@@ -106,13 +107,6 @@ public class BlockEntityLoadHandler {
 
         }
         return null;
-
-
-//        try {
-//
-//        }catch (Exception e) {
-//            BECraft.LOGGER.error("Something went wrong during nbt parsing: " + e);
-//        }
     }
 
 
